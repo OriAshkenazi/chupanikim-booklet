@@ -1,0 +1,78 @@
+:root {
+  --bg: #f4efe4;
+  --surface: #fffdf8;
+  --ink: #2a2622;
+  --muted: #7a7065;
+  --line: #ddd3c2;
+  --accent: #8a4b2a;
+  --accent-ink: #fff;
+  --danger: #a33;
+  --sel: #2f6fdf;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1d1b18; --surface: #272420; --ink: #efe8dc; --muted: #a59a8c; --line: #3a3530;
+    --accent: #d08a5c; --accent-ink: #1d1b18; color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.45 -apple-system, "Segoe UI", system-ui, sans-serif; }
+button, input, select { font: inherit; color: inherit; }
+button { border: 1px solid var(--line); background: var(--surface); padding: 7px 12px; border-radius: 9px; cursor: pointer; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+button.ghost { background: transparent; }
+button.danger { color: var(--danger); }
+button:disabled { opacity: .5; cursor: default; }
+code { font-size: .92em; }
+.muted { color: var(--muted); font-size: .9em; }
+
+.bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.bar h1 { font-size: 17px; margin: 0; }
+.bar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.pages { display: flex; gap: 8px; overflow-x: auto; padding: 10px 16px; scrollbar-width: thin; }
+.pages button { flex: 0 0 auto; padding: 4px; display: grid; gap: 3px; justify-items: center; font-size: 12px; }
+.pages button img { width: 96px; height: 69px; object-fit: cover; border-radius: 4px; display: block; background: #e8e0d0; }
+.pages button.active { outline: 2px solid var(--accent); }
+.pages button.off { opacity: .4; }
+
+.stage-wrap { padding: 0 16px; }
+#stage { width: min(100%, calc(70vh * 2126 / 1535)); height: auto; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 2px 14px rgba(0,0,0,.15);
+  touch-action: none; background: #ddd; }
+
+.panel { padding: 14px 16px 40px; display: grid; gap: 12px; max-width: 900px; }
+.panel h3 { margin: 4px 0 0; font-size: 15px; }
+.panel .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px 16px; }
+.panel label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+.panel input[type=text], .panel input[type=number] { width: 100%; padding: 7px 9px; border: 1px solid var(--line);
+  border-radius: 8px; background: var(--surface); color: var(--ink); font-size: 15px; }
+.panel input[type=range] { width: 100%; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.hint { font-size: 13px; color: var(--muted); }
+
+.loader { display: grid; place-items: center; min-height: 70vh; padding: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; max-width: 480px; }
+.file { display: inline-block; position: relative; }
+.file input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.file span { display: inline-block; padding: 9px 14px; border-radius: 9px; background: var(--accent); color: var(--accent-ink); }
+.file.small span { padding: 7px 12px; background: transparent; color: var(--ink); border: 1px solid var(--line); }
+
+dialog { border: 1px solid var(--line); border-radius: 14px; padding: 0; background: var(--surface); color: var(--ink);
+  width: min(560px, calc(100vw - 32px)); }
+dialog::backdrop { background: rgba(0,0,0,.35); }
+.settings { padding: 18px; display: grid; gap: 14px; }
+.settings h2 { margin: 0; font-size: 18px; }
+fieldset { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 8px; }
+legend { padding: 0 6px; font-weight: 600; }
+.seg { display: flex; gap: 6px; flex-wrap: wrap; }
+.seg label { border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; cursor: pointer; }
+.seg input { margin: 0 0 0 5px; }
+.places { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 4px 12px; }
+.places label { display: flex; gap: 6px; align-items: center; font-size: 14px; }
+menu { margin: 0; padding: 0; display: flex; justify-content: flex-start; }
+
+.busy { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,.35); z-index: 20; }

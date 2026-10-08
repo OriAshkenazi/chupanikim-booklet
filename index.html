@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>עורך החוברת</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<header class="bar">
+  <h1>עורך החוברת</h1>
+  <div class="bar-actions">
+    <button id="btn-settings" class="ghost">הגדרות</button>
+    <button id="btn-export-page">ייצוא עמוד</button>
+    <button id="btn-export-all" class="primary">ייצוא החוברת</button>
+  </div>
+</header>
+
+<section id="loader" class="loader" hidden>
+  <div class="card">
+    <h2>טעינת חבילת התמונות</h2>
+    <p>התמונות, המדבקות והגופן נמצאים בקובץ <code>booklet-pack.zip</code> ונשמרים רק בדפדפן הזה. שום דבר לא עולה לאינטרנט.</p>
+    <label class="file">
+      <input id="pack-input" type="file" accept=".zip,application/zip">
+      <span>בחירת booklet-pack.zip</span>
+    </label>
+    <p id="loader-status" class="muted"></p>
+  </div>
+</section>
+
+<main id="app" hidden>
+  <nav id="pages" class="pages" aria-label="עמודים"></nav>
+
+  <div class="stage-wrap">
+    <canvas id="stage" aria-label="תצוגת העמוד"></canvas>
+  </div>
+
+  <section id="panel" class="panel"></section>
+</main>
+
+<dialog id="settings">
+  <form method="dialog" class="settings">
+    <h2>הגדרות החוברת</h2>
+
+    <fieldset>
+      <legend>שוליים לכריכה</legend>
+      <label>רוחב (מ״מ) <input id="set-margin" type="number" min="0" max="30" step="1"></label>
+      <div class="seg" role="radiogroup" id="set-margin-side">
+        <label><input type="radio" name="mside" value="none"> בלי</label>
+        <label><input type="radio" name="mside" value="right"> ימין</label>
+        <label><input type="radio" name="mside" value="left"> שמאל</label>
+        <label><input type="radio" name="mside" value="alternate"> לסירוגין</label>
+      </div>
+      <p class="muted">לסירוגין: עמודים אי־זוגיים בימין, זוגיים בשמאל (כמו עמודים פנימיים בכריכה).</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>גבול בין התמונה לנייר</legend>
+      <div class="seg" role="radiogroup" id="set-edge">
+        <label><input type="radio" name="edge" value="straight"> קו חלק</label>
+        <label><input type="radio" name="edge" value="torn"> דף קרוע</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>מקומות בחוברת</legend>
+      <div id="set-places" class="places"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>גיבוי</legend>
+      <div class="row">
+        <button type="button" id="btn-save-layout" class="ghost">שמירת עריכה לקובץ</button>
+        <label class="file small"><input id="layout-input" type="file" accept=".json"><span>טעינת עריכה</span></label>
+        <button type="button" id="btn-reset" class="danger ghost">איפוס הכול</button>
+      </div>
+      <div class="row">
+        <button type="button" id="btn-new-pack" class="ghost">טעינת חבילה אחרת</button>
+      </div>
+    </fieldset>
+
+    <menu><button value="close" class="primary">סגירה</button></menu>
+  </form>
+</dialog>
+
+<div id="busy" class="busy" hidden><div class="card"><p id="busy-text">מייצא…</p></div></div>
+
+<script src="app.js"></script>
+</body>
+</html>
